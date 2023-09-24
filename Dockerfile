@@ -3,8 +3,9 @@ FROM golang:1.20.5-alpine AS build
 RUN mkdir /src
 ADD ./*.go /src
 ADD ./go.mod /src/
+ADD ./go.sum /src
 WORKDIR /src
-RUN go get github.com/gofiber/fiber/v2
+RUN go get -v
 RUN GOOS=linux go build -v -o website
 RUN chmod +x website
 

@@ -1,16 +1,15 @@
 FROM golang:1.20.5-alpine AS build
 
-RUN mkdir /src
-ADD . /src
-ADD ./go.mod /src
-ADD ./go.sum /src
-
 WORKDIR /src
-RUN go get -d -v -t 
-RUN GOOS=linux go build -v -o website .
-RUN chmod +x website
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    --mount=type=bind,source=.,target=/src \
+    go get -d -v -t 
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    --mount=type=bind,source=.,target=/src,rw \
+    GOOS=linux go build -v -o /bin/website .
+RUN chmod +x /bin/website
 
 FROM scratch
-COPY --from=build /src/website /usr/local/bin/website
+COPY --from=build /bin/website /usr/local/bin/website
 EXPOSE 8080
 CMD [ "website" ]

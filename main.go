@@ -1,7 +1,6 @@
 package main
 
 import (
-	"goapp/controller"
 	"goapp/routes"
 	"log"
 
@@ -10,11 +9,6 @@ import (
 
 func main() {
 	app := fiber.New()
-	api := routes.Setup_routes(app)
-	api.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Pong")
-	})
-	api.Get("/person", controller.GetPerson)
-	api.Post("/person", controller.SetPerson)
+	routes.Setup_routes(app)
 	log.Fatal(app.Listen(":8080"))
 }

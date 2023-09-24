@@ -4,7 +4,7 @@ RUN mkdir /src
 ADD ./*.go /src
 ADD ./go.mod /src/
 WORKDIR /src
-RUN go get -d -v -t
+RUN go get github.com/gofiber/fiber/v2
 RUN GOOS=linux go build -v -o website
 RUN chmod +x website
 

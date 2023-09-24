@@ -1,9 +1,9 @@
 package main
 
 import (
-	"goapp/routes"
 	"log"
 
+	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/routes"
 	"github.com/gofiber/fiber/v2"
 )
 

@@ -2,7 +2,8 @@ package controller
 
 import (
 	"fmt"
-	"goapp/model"
+
+	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/model"
 
 	"github.com/gofiber/fiber/v2"
 )

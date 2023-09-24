@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"goapp/controller"
+	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/controller"
 
 	"github.com/gofiber/fiber/v2"
 )

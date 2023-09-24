@@ -22,11 +22,10 @@ func SetPerson(c *fiber.Ctx) error {
 
 func GetPerson(c *fiber.Ctx) error {
 	if persons != nil {
-		person_string := ""
-		for _, person := range persons {
-			person_string = person_string + model.GetName(person) + " " + model.GetSurname(person) + "\n"
-		}
-		return c.Status(fiber.StatusOK).SendString(person_string)
+		return c.Render("index", fiber.Map{
+			"Title":   "Persons",
+			"Persons": persons,
+		})
 	}
 	return c.Status(fiber.StatusOK).SendString("No person created")
 }

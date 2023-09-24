@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/routes"
 	"github.com/gofiber/fiber/v2"
@@ -10,5 +11,6 @@ import (
 func main() {
 	app := fiber.New()
 	routes.Setup_routes(app)
-	log.Fatal(app.Listen(":8080"))
+	listen_port := ":" + os.Getenv("PORT")
+	log.Fatal(app.Listen(listen_port))
 }

@@ -8,8 +8,8 @@ import (
 
 func Setup_routes(app *fiber.App) {
 	api := app.Group("/api/")
-	api.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Pong")
+	api.Get("/health", func(c *fiber.Ctx) error {
+		return c.SendString("Server is up")
 	})
 	api.Get("/person", controller.GetPerson)
 	api.Post("/person", controller.SetPerson)

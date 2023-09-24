@@ -1,24 +1,24 @@
 package model
 
 type Person struct {
-	name    string
-	surname string
+	Name    string `json:"name" xml:"name" form:"name"`
+	Surname string `json:"surname" xml:"surname" form:"surname"`
 }
 
 func SetName(person *Person, name string) *Person {
-	person.name = name
+	person.Name = name
 	return person
 }
 
 func SetSurname(person *Person, surname string) *Person {
-	person.surname = surname
+	person.Surname = surname
 	return person
 }
 
 func GetName(person *Person) string {
-	return person.name
+	return person.Name
 }
 
 func GetSurname(person *Person) string {
-	return person.surname
+	return person.Surname
 }

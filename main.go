@@ -10,10 +10,11 @@ import (
 
 func main() {
 	app := fiber.New()
-	router := routes.Setup_routes(app)
-	router.Get("/ping", func(c *fiber.Ctx) error {
+	api := routes.Setup_routes(app)
+	api.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Pong")
 	})
-	router.Get("/person", controller.GetPerson)
+	api.Get("/person", controller.GetPerson)
+	api.Post("/person", controller.SetPerson)
 	log.Fatal(app.Listen(":8080"))
 }

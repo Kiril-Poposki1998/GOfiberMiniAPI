@@ -4,15 +4,16 @@ import (
 	"log"
 	"os"
 
-	"github.com/gofiber/template/html/v2"
-
+	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/database"
 	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html/v2"
 )
 
 func main() {
+	database.Connect()
 	app := fiber.New(fiber.Config{
-		Views: html.New("./views", ".html"),
+		Views: html.New("/src/views", ".html"),
 	})
 	routes.Setup_routes(app)
 	listen_port := ":" + os.Getenv("PORT")

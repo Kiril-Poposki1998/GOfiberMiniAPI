@@ -11,6 +11,9 @@ func Setup_routes(app *fiber.App) {
 	api.Get("/health", func(c *fiber.Ctx) error {
 		return c.SendString("Server is up")
 	})
-	api.Get("/person", controller.GetPerson)
+	api.Get("/person", controller.GetPersons)
+	api.Get("/person/:id", controller.GetPerson)
+	api.Delete("/person/:id", controller.DeletePerson)
+	api.Put("/person/:id", controller.UpdatePerson)
 	api.Post("/person", controller.SetPerson)
 }

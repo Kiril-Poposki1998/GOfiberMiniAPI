@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/database"
+	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/middleware"
 	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/model"
 
 	"github.com/gofiber/fiber/v2"
@@ -32,6 +33,10 @@ func GetPersons(c *fiber.Ctx) error {
 }
 
 func GetPerson(c *fiber.Ctx) error {
+	if !middleware.CheckUser(c) {
+		return c.Status(fiber.StatusForbidden).SendString("You are not authenticated to view users individually")
+	}
+
 	person := new(model.Person)
 	id := c.Params("id")
 

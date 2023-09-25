@@ -12,6 +12,7 @@ import (
 
 func main() {
 	database.Connect()
+	database.ConnectRedis()
 	app := fiber.New(fiber.Config{
 		Views: html.New("/src/views", ".html"),
 	})

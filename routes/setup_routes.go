@@ -2,11 +2,13 @@ package routes
 
 import (
 	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/controller"
+	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func Setup_routes(app *fiber.App) {
+	// API Route
 	api := app.Group("/api/")
 	api.Get("/health", func(c *fiber.Ctx) error {
 		return c.SendString("Server is up")
@@ -16,4 +18,7 @@ func Setup_routes(app *fiber.App) {
 	api.Delete("/person/:id", controller.DeletePerson)
 	api.Put("/person/:id", controller.UpdatePerson)
 	api.Post("/person", controller.SetPerson)
+	// AUTH Route
+	auth := app.Group("/auth/")
+	auth.Get("/", middleware.AuthenticateUser)
 }

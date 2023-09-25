@@ -3,7 +3,7 @@ FROM golang:1.20.5-alpine AS build
 WORKDIR /src
 ADD ./views /src/views
 RUN --mount=type=cache,target=/go/pkg/mod/ \
-    --mount=type=bind,source=.,target=/src \
+    --mount=type=bind,source=.,target=/src,rw \
     go get -d -v -t 
 RUN --mount=type=cache,target=/go/pkg/mod/ \
     --mount=type=bind,source=.,target=/src,rw \

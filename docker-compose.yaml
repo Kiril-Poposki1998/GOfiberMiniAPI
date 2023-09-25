@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  fiber_app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - PORT=${PORT}
+    depends_on:
+      mysql:
+        condition: service_healthy
+  
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: person
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=root
+      start_period: 2s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+    
+volumes:
+  mysql:

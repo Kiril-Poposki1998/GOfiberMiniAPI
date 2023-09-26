@@ -25,6 +25,7 @@ func Connect() error {
 		panic(err)
 	}
 	Database.AutoMigrate(&model.Person{})
+	Database.AutoMigrate(&model.User{})
 	return nil
 }
 

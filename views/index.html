@@ -9,7 +9,7 @@
     <ul>
         {{range .Persons}}
             <div>
-                <li>{{ .Name }} {{ .Surname }}</li>
+                <a style="display: inline;" href="http://localhost:8080/api/person/{{ .Id }}">{{ .Id }}</a><li>{{ .Name }} {{ .Surname }}</li>
             </div>
         {{ end }}
     </ul>

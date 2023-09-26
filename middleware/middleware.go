@@ -26,7 +26,8 @@ func CheckUser(c *fiber.Ctx) bool {
 	check, err := database.Redis.Get(auth_cookie)
 	if string(check) == "true" {
 		return true
+	} else if err != nil {
+		fmt.Print(err)
 	}
-	fmt.Print(err)
 	return false
 }

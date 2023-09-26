@@ -2,6 +2,7 @@ version: "3"
 
 services:
   fiber_app:
+    container_name: fiber_app
     build:
       dockerfile: Dockerfile
     ports:
@@ -11,8 +12,11 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+      redis:
+        condition: service_healthy
   
   mysql:
+    container_name: fiber_mysql
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -29,9 +33,16 @@ services:
       retries: 55
   
   redis:
+    container_name: fiber_redis
     image: redis:7.0.13-alpine
     ports:
       - 6379:6379
+    healthcheck:
+      test: redis-cli
+      interval: 2s
+      timeout: 3s
+      retries: 5
+      start_period: 1s
     
 volumes:
   mysql:

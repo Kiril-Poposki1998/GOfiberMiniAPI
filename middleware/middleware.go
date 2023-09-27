@@ -64,3 +64,18 @@ func LoginUser(c *fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusUnauthorized).SendString("Username or password is not correct")
 }
+
+func LogoutUser(c *fiber.Ctx) error {
+	auth_cookie := c.Cookies("session_id")
+	c.Cookie(&fiber.Cookie{
+		Name:     "session_id",
+		Value:    "",
+		Expires:  time.Now(),
+		HTTPOnly: true,
+	})
+	err := database.Redis.Delete(auth_cookie)
+	if err != nil {
+		panic("Error while deleting session in redis")
+	}
+	return c.Status(fiber.StatusOK).SendString("You have been logged out")
+}

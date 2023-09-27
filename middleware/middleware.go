@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"time"
 
@@ -38,6 +40,9 @@ func RegisterUser(c *fiber.Ctx) error {
 		fmt.Print(err.Error())
 		return err
 	}
+	hash := sha256.New()
+	hash.Write([]byte(user.Password))
+	user.Password = hex.EncodeToString(hash.Sum(nil))
 	database.Database.Create(user)
 	return c.Status(fiber.StatusOK).SendString("User created")
 }
@@ -50,6 +55,12 @@ func LoginUser(c *fiber.Ctx) error {
 	}
 	fetch_user := new(model.User)
 	database.Database.First(&fetch_user, "Username = ?", user.Username)
-	AuthenticateUser(c)
-	return c.Status(fiber.StatusOK).SendString("You have been logged in you can view each individual user")
+	hash := sha256.New()
+	hash.Write([]byte(user.Password))
+	user.Password = hex.EncodeToString(hash.Sum(nil))
+	if fetch_user.Password == user.Password {
+		AuthenticateUser(c)
+		return c.Status(fiber.StatusOK).SendString("You have been logged in. You can view each individual user")
+	}
+	return c.Status(fiber.StatusUnauthorized).SendString("Username or password is not correct")
 }

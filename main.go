@@ -17,6 +17,6 @@ func main() {
 		Views: html.New("/src/views", ".html"),
 	})
 	routes.Setup_routes(app)
-	listen_port := ":" + os.Getenv("PORT")
+	listen_port := ":" + os.Getenv("APP_PORT")
 	log.Fatal(app.Listen(listen_port))
 }

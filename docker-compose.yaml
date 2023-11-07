@@ -6,9 +6,9 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - ${PORT}:${PORT}
+      - ${APP_PORT}:${APP_PORT}
     environment:
-      - PORT=${PORT}
+      - APP_PORT=${APP_PORT}
     depends_on:
       mysql:
         condition: service_healthy
@@ -22,7 +22,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: person
     ports:
-      - 3306:3306
+      - ${DATABASE_PORT}:3306
     volumes:
       - mysql:/var/lib/mysql
     healthcheck:
@@ -36,7 +36,7 @@ services:
     container_name: fiber_redis
     image: redis:7.0.13-alpine
     ports:
-      - 6379:6379
+      - ${REDIS_PORT}:6379
     healthcheck:
       test: redis-cli
       interval: 2s

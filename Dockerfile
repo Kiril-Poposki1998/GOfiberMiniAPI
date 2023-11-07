@@ -11,8 +11,8 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
 RUN chmod +x /bin/website
 
 FROM scratch
-ENV PORT=8080
+ENV APP_PORT=8080
 COPY --from=build /bin/website /usr/local/bin/website
 COPY --from=build /src/views /src/views
-EXPOSE ${PORT}
+EXPOSE ${APP_PORT}
 CMD [ "website" ]

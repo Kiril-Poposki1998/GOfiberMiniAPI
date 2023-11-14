@@ -45,10 +45,14 @@ func GetPerson(c *fiber.Ctx) error {
 	if query.RowsAffected == 0 {
 		return c.Status(fiber.StatusNotFound).SendString("Person by id was not found")
 	}
-	return c.Render("person", fiber.Map{
-		"Title":  "Person",
-		"Person": person,
-	})
+
+	person_json := struct {
+		Id      uint
+		Name    string
+		Surname string
+	}{person.Id, person.Name, person.Surname}
+
+	return c.JSON(person_json)
 }
 
 func DeletePerson(c *fiber.Ctx) error {

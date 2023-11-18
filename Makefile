@@ -5,4 +5,4 @@ run:
 	@go run main.go
 
 test:
-	@go test -v tests/
+	@go test -v ./tests

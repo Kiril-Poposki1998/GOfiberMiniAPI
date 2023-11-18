@@ -10,9 +10,12 @@ import (
 	"github.com/gofiber/template/html/v2"
 )
 
-func main() {
+func init() {
 	database.Connect()
 	database.ConnectRedis()
+}
+
+func main() {
 	app := fiber.New(fiber.Config{
 		Views: html.New("/src/views", ".html"),
 	})

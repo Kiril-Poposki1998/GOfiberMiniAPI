@@ -1,6 +1,7 @@
 package database
 
 import (
+	"os"
 	"runtime"
 
 	"github.com/Kiril-Poposki1998/GOfiberMiniAPI/model"
@@ -10,7 +11,7 @@ import (
 )
 
 var Database *gorm.DB
-var DATABASE_URI string = "root:root@tcp(mysql:3306)/person?charset=utf8mb4&parseTime=True&loc=Local"
+var DATABASE_URI string = os.Getenv("DATABASE_URL")
 var Redis *redis.Storage
 
 func Connect() error {
@@ -31,7 +32,7 @@ func Connect() error {
 
 func ConnectRedis() error {
 	Redis = redis.New(redis.Config{
-		Host:      "redis",
+		Host:      os.Getenv("REDIS_HOST"),
 		Port:      6379,
 		Username:  "",
 		Password:  "",

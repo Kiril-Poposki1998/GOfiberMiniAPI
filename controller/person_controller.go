@@ -23,13 +23,7 @@ func SetPerson(c *fiber.Ctx) error {
 func GetPersons(c *fiber.Ctx) error {
 	var persons []model.Person
 	database.Database.Find(&persons)
-	if len(persons) != 0 {
-		return c.Render("index", fiber.Map{
-			"Title":   "Persons",
-			"Persons": persons,
-		})
-	}
-	return c.Status(fiber.StatusOK).SendString("No person created")
+	return c.JSON(persons)
 }
 
 func GetPerson(c *fiber.Ctx) error {

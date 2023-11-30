@@ -8,6 +8,8 @@ services:
     ports:
       - ${APP_PORT}:${APP_PORT}
     environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_HOST=${REDIS_HOST}
       - APP_PORT=${APP_PORT}
     depends_on:
       mysql:
